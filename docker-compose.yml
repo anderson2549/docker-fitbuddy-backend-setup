@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:8.0.10
+    container_name: mongo_db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js
+    command: ["mongod", "--bind_ip", "0.0.0.0"]
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fitbuddy_app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongo
+    command: ["sh", "-c", "cp /app/.env.example /app/.env && npm start"]
+
+volumes:
+  mongo_data:
