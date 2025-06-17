@@ -2,12 +2,13 @@ FROM node:18
 
 # Set the working directory inside the container
 WORKDIR /app
-
+ 
 # Clone the repository
 RUN git clone https://github.com/anderson2549/FitBuddyBackend.git /app/
 
 # Checkout a specific tag
-RUN cd /app &&  git checkout main&& git pull
+RUN cd /app &&  git checkout main && git pull origin main
+
 
 # Install file env
 RUN cp /app/.env.example /app/.env || echo 'No .env.example file found'

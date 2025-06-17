@@ -25,7 +25,7 @@ db.createUser({
         { role: "readWriteAnyDatabase", db: "fitbuddy" }
     ]
 });
-
+ 
 // Create a user for the 'fitbuddy' database
 db.createUser({
     user: "root",
